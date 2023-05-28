@@ -1,0 +1,12 @@
+{
+    "genieai.enableConversationHistory": false,
+    "genieai.openai.maxTokens": 4000,
+    "launch": {
+
+        "inputs": [],
+        "configurations": [],
+        "compounds": []
+    },
+    "genieai.openai.model": "gpt-4-0314",
+    "java.configuration.updateBuildConfiguration": "interactive"
+}
