@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:animal_therapy/models/chat.dart'; // Replace with your actual path
 
 class ChatScreen extends StatefulWidget {
   const ChatScreen({Key? key}) : super(key: key);
@@ -103,6 +102,58 @@ class _ChatScreenState extends State<ChatScreen> {
             ),
           ],
         ),
+      ),
+    );
+  }
+}
+
+class MessageBubble extends StatelessWidget {
+  final String text;
+  final String sender;
+  final bool isCurrentUser;
+
+  const MessageBubble({
+    required this.text,
+    required this.sender,
+    this.isCurrentUser = false,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(10.0),
+      child: Column(
+        crossAxisAlignment:
+            isCurrentUser ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+        children: [
+          Text(
+            sender,
+            style: TextStyle(
+              fontSize: 12.0,
+              color: Colors.black54,
+            ),
+          ),
+          Material(
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(30.0),
+              bottomLeft: isCurrentUser ? Radius.circular(30.0) : Radius.zero,
+              bottomRight: Radius.circular(30.0),
+              topRight: isCurrentUser ? Radius.zero : Radius.circular(30.0),
+            ),
+            elevation: 5.0,
+            color: isCurrentUser ? Colors.lightBlueAccent : Colors.white,
+            child: Padding(
+              padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+              child: Text(
+                text,
+                style: TextStyle(
+                  fontSize: 15.0,
+                  color: isCurrentUser ? Colors.white : Colors.black54,
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

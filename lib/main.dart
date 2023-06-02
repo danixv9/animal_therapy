@@ -1,26 +1,36 @@
 import 'package:flutter/material.dart';
-
-import 'emotion_provider.dart';
-import 'chat_screen.dart';
-
+import 'models/emotion_provider.dart';
+import 'screens/chat_screen.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
+
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(MyApp());
+}
+
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   FirebaseMessaging.onBackgroundMessage(_backgroundMessageHandler);
-  runApp(MyApp());
+  runApp(const AnimalTherapyApp());
 }
 
 Future<void> _backgroundMessageHandler(RemoteMessage message) async {
   print('Handling background message: ${message.messageId}');
 }
 
-class AnimalTherapyApp extends StatelfulWidget {
+class AnimalTherapyApp extends StatefulWidget {
+  const AnimalTherapyApp({super.key});
+
   @override
-  _MyAppState createState() => _MyAppState();
+  _AnimalTherapyAppState createState() => _AnimalTherapyAppState();
 }
 
-class _MyAppState extends State<MyApp> {
+class _AnimalTherapyAppState extends State<AnimalTherapyApp> {
   final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
 
   @override
@@ -58,7 +68,7 @@ class _MyAppState extends State<MyApp> {
 }
 
 class MyHomePage extends StatelessWidget {
-  const MyHomePage({super.key});
+  const MyHomePage({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
