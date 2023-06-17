@@ -1,13 +1,18 @@
-version: '2.1'   
+version: '2.1'    
 orbs:
-  aws-cli: circleci/aws-cli@3.1
+  jira: circleci/jira@1.3.1 
+
 jobs:
   example-job:
     docker:
       # replace with your preferred image
       - image: cimg/base:stable
     steps:
-      - aws-cli/install
+      - jira/notify:
+          environment_type: production 
+          job_type: build 
+          scan_commit_body: false 
+
 workflows:
   example-workflow:
     jobs:
