@@ -1,14 +1,15 @@
 version: '2.1'    
-orbs:
-  browser-tools: circleci/browser-tools@1.4.1
 jobs:
-  example-job:
+  build:
     docker:
-      # replace with your preferred image
-      - image: cimg/base:stable
+      - image: cimg/base:2022.09
+        auth:
+          username: mydockerhub-user
+          password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
+    environment:
+      FOO: bar
+    parallelism: 3
+    resource_class: large
+    working_directory: ~/my-app
     steps:
-      - browser-tools/install-browser-tools
-workflows:
-  example-workflow:
-    jobs:
-      - example-job
+      - run: go test -v $(go list ./... | circleci tests split)
