@@ -1,0 +1,14 @@
+version: '2.1'   
+orbs:
+  aws-cli: circleci/aws-cli@3.1
+jobs:
+  example-job:
+    docker:
+      # replace with your preferred image
+      - image: cimg/base:stable
+    steps:
+      - aws-cli/install
+workflows:
+  example-workflow:
+    jobs:
+      - example-job
